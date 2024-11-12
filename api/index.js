@@ -5,7 +5,7 @@ require("dotenv").config();
 const cors = require("cors");
 const app = express();
 const corsOptions = {
-  origin: "*", // Allow only localhost:3000
+  origin: "*",
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 };
@@ -13,7 +13,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI; // Replace with your MongoDB URI
+const MONGO_URI = process.env.MONGO_URI;
 
 // Connect to MongoDB
 mongoose
