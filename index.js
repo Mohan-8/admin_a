@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: String,
 });
-
 const User = mongoose.model("User", userSchema);
+const User_s2 = mongoose.model("User_s2", userSchema);
 app.get("/", (req, res) => {
   res.send(
     "WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -55,7 +55,27 @@ app.get("/api/users", async (req, res) => {
     res.status(500).json({ error: "Error fetching users" });
   }
 });
+app.get("/api/users/counts2", async (req, res) => {
+  try {
+    const count = await User_s2.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching user count" });
+  }
+});
 
+// Add this new route to get user details
+app.get("/api/userss2", async (req, res) => {
+  try {
+    const users = await User_s2.find(
+      {},
+      "telegramId firstName lastName rewards referredBy solanaClaimed solanaAddress"
+    );
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching users" });
+  }
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
